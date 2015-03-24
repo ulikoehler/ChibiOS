@@ -176,22 +176,30 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
      *      4.1 Both blocks should not be equal to the data written
      * Precondition: MMCSD_BLOCK_SIZE >= 2
      */
+    memset(buf, 0, MMCSD_BLOCK_SIZE * 2);
+    memset(buf2, 0, MMCSD_BLOCK_SIZE * 2);
     /* 1. */
+    startblk = 32;
     unsigned int i = 0;
     for (; i < MMCSD_BLOCK_SIZE * 2; ++i) {
-      buf[i] = i % 0xFF;
+      buf[i] = (i + 7) % 'T'; //Ensure block 1/2 are not equal
     }
     /* 2. */
-    if(blkWrite(&SDCD1, startblk, buf, 2)) {
+    if(sdcWrite(&SDCD1, startblk, buf, 2)) {
       chprintf(chp, "sdcErase() test write failed\r\n");
       goto exittest;
     }
     /* 3. (erase) */
-    if(sdcErase(&SDCD1, startblk, 1)) {
+    if(sdcErase(&SDCD1, startblk, startblk + 2)) {
       chprintf(chp, "sdcErase() failed\r\n");
       goto exittest;
     }
-    if(blkRead(&SDCD1, startblk, buf2, 2)) {
+    sdcflags_t errflags = sdcGetAndClearErrors(&SDCD1);
+    if(errflags) {
+      chprintf(chp, "sdcErase() yielded error flags: %d\r\n", errflags);
+      goto exittest;
+    }
+    if(sdcRead(&SDCD1, startblk, buf2, 2)) {
       chprintf(chp, "single-block sdcErase() failed\r\n");
       goto exittest;
     }
@@ -207,11 +215,11 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
       goto exittest;
     }
     /* 4. */
-    if(sdcErase(&SDCD1, startblk, 2)) {
+    if(sdcErase(&SDCD1, startblk, startblk + 2)) {
       chprintf(chp, "multi-block sdcErase() failed\r\n");
       goto exittest;
     }
-    if(blkRead(&SDCD1, startblk, buf2, 2)) {
+    if(sdcRead(&SDCD1, startblk, buf2, 2)) {
       chprintf(chp, "single-block sdcErase() failed\r\n");
       goto exittest;
     }
@@ -284,6 +292,10 @@ int main(void) {
    * Creates the blinker thread.
    */
   chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+
+  const char* arg = "erase";
+  char** args = {&arg};
+  cmd_sdc(&SD6, 1, args);
 
   /*
    * Normal main() thread activity, in this demo it does nothing.
