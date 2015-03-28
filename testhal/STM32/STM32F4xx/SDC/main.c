@@ -169,17 +169,16 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
      * Strategy:
      *   1. Fill two blocks with non-constant data
      *   2. Write two blocks starting at startblk
-     *   3. Erase the first block
-     *      3.1. First block should NOT be equal to the data written
-     *      3.2. Second block should be equal to the data written.
+     *   3. Erase the second of the two blocks
+     *      3.1. First block should be equal to the data written
+     *      3.2. Second block should NOT be equal too the data written (i.e. erased).
      *   4. Erase both first and second block
-     *      4.1 Both blocks should not be equal to the data written
+     *      4.1 Both blocks should not be equal to the data initially written
      * Precondition: MMCSD_BLOCK_SIZE >= 2
      */
     memset(buf, 0, MMCSD_BLOCK_SIZE * 2);
     memset(buf2, 0, MMCSD_BLOCK_SIZE * 2);
     /* 1. */
-    startblk = 32;
     unsigned int i = 0;
     for (; i < MMCSD_BLOCK_SIZE * 2; ++i) {
       buf[i] = (i + 7) % 'T'; //Ensure block 1/2 are not equal
@@ -190,7 +189,7 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
       goto exittest;
     }
     /* 3. (erase) */
-    if(sdcErase(&SDCD1, startblk, startblk + 2)) {
+    if(sdcErase(&SDCD1, startblk + 1, startblk + 2)) {
       chprintf(chp, "sdcErase() failed\r\n");
       goto exittest;
     }
@@ -204,14 +203,14 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
       goto exittest;
     }
     /* 3.1. */
-    if(memcmp(buf, buf2, MMCSD_BLOCK_SIZE) == 0) {
-      chprintf(chp, "sdcErase() erased block compare failed\r\n");
+    if(memcmp(buf, buf2, MMCSD_BLOCK_SIZE) != 0) {
+      chprintf(chp, "sdcErase() non-erased block compare failed\r\n");
       goto exittest;
     }
     /* 3.2. */
     if(memcmp(buf + MMCSD_BLOCK_SIZE,
-              buf2 + MMCSD_BLOCK_SIZE, MMCSD_BLOCK_SIZE)) {
-      chprintf(chp, "sdcErase() non-erased block compare failed\r\n");
+              buf2 + MMCSD_BLOCK_SIZE, MMCSD_BLOCK_SIZE) == 0) {
+      chprintf(chp, "sdcErase() erased block compare failed\r\n");
       goto exittest;
     }
     /* 4. */
@@ -292,10 +291,6 @@ int main(void) {
    * Creates the blinker thread.
    */
   chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
-
-  const char* arg = "erase";
-  char** args = {&arg};
-  cmd_sdc(&SD6, 1, args);
 
   /*
    * Normal main() thread activity, in this demo it does nothing.
