@@ -174,7 +174,7 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
      *      3.2. Second block should NOT be equal too the data written (i.e. erased).
      *   4. Erase both first and second block
      *      4.1 Both blocks should not be equal to the data initially written
-     * Precondition: MMCSD_BLOCK_SIZE >= 2
+     * Precondition: SDC_BURST_SIZE >= 2
      */
     memset(buf, 0, MMCSD_BLOCK_SIZE * 2);
     memset(buf2, 0, MMCSD_BLOCK_SIZE * 2);
