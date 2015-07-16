@@ -36,5 +36,41 @@
 /*
  * HAL driver system settings.
  */
+#define STM32_NO_INIT                       FALSE
+#define STM32_VOS                           STM32_VOS_1P8
+#define STM32_PVD_ENABLE                    FALSE
+#define STM32_PLS                           STM32_PLS_LEV0
+#define STM32_HSI16_ENABLED                 TRUE
+#define STM32_LSI_ENABLED                   TRUE
+#define STM32_HSE_ENABLED                   FALSE
+#define STM32_LSE_ENABLED                   FALSE
+#define STM32_ADC_CLOCK_ENABLED             TRUE
+#define STM32_USB_CLOCK_ENABLED             TRUE
+#define STM32_MSIRANGE                      STM32_MSIRANGE_2M
+#define STM32_SW                            STM32_SW_PLL
+#define STM32_PLLSRC                        STM32_PLLSRC_HSI16
+#define STM32_PLLMUL_VALUE                  4
+#define STM32_PLLDIV_VALUE                  2
+#define STM32_HPRE                          STM32_HPRE_DIV1
+#define STM32_PPRE1                         STM32_PPRE1_DIV1
+#define STM32_PPRE2                         STM32_PPRE2_DIV1
+#define STM32_MCOSEL                        STM32_MCOSEL_NOCLOCK
+#define STM32_MCOPRE                        STM32_MCOPRE_DIV1
+#define STM32_RTCSEL                        STM32_RTCSEL_LSI
+#define STM32_RTCPRE                        STM32_RTCPRE_DIV2
+#define STM32_USART1SEL                     STM32_USART1SEL_APB
+#define STM32_USART2SEL                     STM32_USART2SEL_APB
+#define STM32_LPUART1SEL                    STM32_LPUART1SEL_APB
+#define STM32_I2C1SEL                       STM32_I2C1SEL_APB
+#define STM32_LPTIM1SEL                     STM32_LPTIM1SEL_APB
+#define STM32_HSI48SEL                      STM32_HSI48SEL_HSI48
+
+/*
+ * SERIAL driver system settings.
+ */
+#define STM32_SERIAL_USE_USART1             FALSE
+#define STM32_SERIAL_USE_USART2             TRUE
+#define STM32_SERIAL_USART1_PRIORITY        3
+#define STM32_SERIAL_USART2_PRIORITY        3
 
 #endif /* _MCUCONF_H_ */
