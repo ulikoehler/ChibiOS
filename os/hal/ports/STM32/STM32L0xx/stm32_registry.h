@@ -129,13 +129,13 @@
 #define STM32_TIM6_IS_32BITS                FALSE
 #define STM32_TIM6_CHANNELS                 0
 
-#define STM32_HAS_TIM20                     TRUE
-#define STM32_TIM20_IS_32BITS               FALSE
-#define STM32_TIM20_CHANNELS                4
-
 #define STM32_HAS_TIM21                     TRUE
 #define STM32_TIM21_IS_32BITS               FALSE
-#define STM32_TIM21_CHANNELS                4
+#define STM32_TIM21_CHANNELS                2
+
+#define STM32_HAS_TIM22                     TRUE
+#define STM32_TIM22_IS_32BITS               FALSE
+#define STM32_TIM22_CHANNELS                2
 
 #define STM32_HAS_TIM1                      FALSE
 #define STM32_HAS_TIM3                      FALSE
@@ -154,6 +154,7 @@
 #define STM32_HAS_TIM17                     FALSE
 #define STM32_HAS_TIM18                     FALSE
 #define STM32_HAS_TIM19                     FALSE
+#define STM32_HAS_TIM20                     FALSE
 
 /* USART attributes.*/
 #define STM32_HAS_USART1                    TRUE
@@ -285,13 +286,13 @@
 #define STM32_TIM6_IS_32BITS                FALSE
 #define STM32_TIM6_CHANNELS                 0
 
-#define STM32_HAS_TIM20                     TRUE
-#define STM32_TIM20_IS_32BITS               FALSE
-#define STM32_TIM20_CHANNELS                4
-
 #define STM32_HAS_TIM21                     TRUE
 #define STM32_TIM21_IS_32BITS               FALSE
-#define STM32_TIM21_CHANNELS                4
+#define STM32_TIM21_CHANNELS                2
+
+#define STM32_HAS_TIM22                     TRUE
+#define STM32_TIM22_IS_32BITS               FALSE
+#define STM32_TIM22_CHANNELS                2
 
 #define STM32_HAS_TIM1                      FALSE
 #define STM32_HAS_TIM3                      FALSE
@@ -310,6 +311,7 @@
 #define STM32_HAS_TIM17                     FALSE
 #define STM32_HAS_TIM18                     FALSE
 #define STM32_HAS_TIM19                     FALSE
+#define STM32_HAS_TIM20                     FALSE
 
 /* USART attributes.*/
 #define STM32_HAS_USART1                    TRUE
@@ -445,13 +447,13 @@
 #define STM32_TIM6_IS_32BITS                FALSE
 #define STM32_TIM6_CHANNELS                 0
 
-#define STM32_HAS_TIM20                     TRUE
-#define STM32_TIM20_IS_32BITS               FALSE
-#define STM32_TIM20_CHANNELS                4
-
 #define STM32_HAS_TIM21                     TRUE
 #define STM32_TIM21_IS_32BITS               FALSE
-#define STM32_TIM21_CHANNELS                4
+#define STM32_TIM21_CHANNELS                2
+
+#define STM32_HAS_TIM22                     TRUE
+#define STM32_TIM22_IS_32BITS               FALSE
+#define STM32_TIM22_CHANNELS                2
 
 #define STM32_HAS_TIM1                      FALSE
 #define STM32_HAS_TIM3                      FALSE
@@ -470,6 +472,7 @@
 #define STM32_HAS_TIM17                     FALSE
 #define STM32_HAS_TIM18                     FALSE
 #define STM32_HAS_TIM19                     FALSE
+#define STM32_HAS_TIM20                     FALSE
 
 /* USART attributes.*/
 #define STM32_HAS_USART1                    TRUE

@@ -73,4 +73,10 @@
 #define STM32_SERIAL_USART1_PRIORITY        3
 #define STM32_SERIAL_USART2_PRIORITY        3
 
+/*
+ * ST driver system settings.
+ */
+#define STM32_ST_IRQ_PRIORITY               2
+#define STM32_ST_USE_TIMER                  21
+
 #endif /* _MCUCONF_H_ */
